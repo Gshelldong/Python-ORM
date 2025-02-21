@@ -1,3 +1,4 @@
+```text
 ORM: 对象关系映射
 类 ----> 表
 对象 ----> 一条记录
@@ -210,3 +211,4 @@ ms = Mysql()
     )
     sql = sql.replace('?', '%s')
     ms.execute(sql, values)
+```
