@@ -23,6 +23,8 @@ class IntegerField(Field):
 
 
 # 元类控制表模型类的创建
+# 比如必须要一个主键
+# 没有给类创建table_name的时候把Class的名称作为表名称
 class OrmMetaClass(type):
 
     # 类名, 类的基类, 类的名称空间
@@ -144,6 +146,7 @@ class Models(dict, metaclass=OrmMetaClass):
             #     r1 = cls(**d)
             #     # 追加到l1列表中
             #     l1.append(r1)
+            # 这里的结果是一样的但是新生成的对象是自定义过的对象
             return [cls(**result) for result in res]
 
     # 插入
@@ -229,9 +232,9 @@ class Movie(Models):
     pass
 
 
-# # # User('出入任意个数的关键字参数')
+# User('出入任意个数的关键字参数')
 # user_obj = User()  # user_obj--->dict
-# user_obj.name = 'xxxx'
+# user_obj.name = 'xxxx'  # 触发setattr方法
 
 # if __name__ == '__main__':
 #     res = User.select(name='jason_sb')[0]
@@ -252,60 +255,62 @@ class Movie(Models):
 #     通过元类控制类的创建.
 # '''
 #
-# # class Movie:
-# #     def __init__(self, movie_name, movie_type):
-# #         self.movie_name = movie_name
-# #         self.movie_type = movie_type
-# #
-# #
-# # class Notice:
-# #     def __init__(self, title, content):
-# #         self.title = title
-# #         self.content = content
+# class Movie:
+#     def __init__(self, movie_name, movie_type):
+#         self.movie_name = movie_name
+#         self.movie_type = movie_type
+#
+#
+# class Notice:
+#     def __init__(self, title, content):
+#         self.title = title
+#         self.content = content
 #
 # '''
 # 问题1: 所有表类都要写__init__, 继承一个父类
 # 问题2: 可以接收任意个数以及任意名字的关键字参数. 继承python中的字典对象.
 # '''
 #
-# # if __name__ == '__main__':
-# #     # d1 = dict({'name': 'tank'})
-# #     # d2 = dict(name='tank2')
-# #     # print(d1)
-# #     # print(d2)
-# #
-# #     d3 = Models(name='jason')
-# #     # print(d3)
-# #     # print(d3.get('name'))
-# #     # print(d3['name'])
-# #     # print(d3.name)
-# #     # d3.name = 'tank'
-# #     # d3.pwd = '123'
-# #     # print(d3.name)
-# #     # print(d3)
-# #     print(d3.name)  # None
-# #
-# #     d3.pwd = '123'
-# #     print(d3.pwd)
-# #     print(d3)
+# if __name__ == '__main__':
+    # d1 = dict({'name': 'tank'})
+    # d2 = dict(name='tank2')
+    # print(d1)
+    # print(d2)
+
+    # d3 = Models(name='jason')
+    # print(d3)
+    # print(d3.get('name'))
+    # print(d3['name'])
+    # print(d3.name)
+    # d3.name = 'tank'
+    # d3.pwd = '123'
+    # print(d3.name)
+    # print(d3)
+    # print(d3.name)  # None
+    #
+    # d3.pwd = '123'
+    # print(d3.pwd)
+    # print(d3)
 
 
 if __name__ == '__main__':
     # 查看所有
     # res = User.select()
     # print(res)
+    pass
+
 
     # 根据查询条件查询
 
-    user = User.select(id=1,name='john')
-    print(user)
+    # user = User.select(id=1,name='john')
+    # print(user)
 
 
-#     # 更新
-#     # user_obj = res[0]
-#     # user_obj.name = 'jason_sb_sb'
-#     # user_obj.sql_update()  # {'id': 3, 'name': 'jason_sb'}
-#
-#     # 插入
-#     # user_obj = User(name='json_egon_sb')
-#     # user_obj.save()
+    # 更新
+    # user_obj = res[0]
+    # user_obj.name = 'jason_sb_sb'
+    # user_obj.sql_update()  # {'id': 3, 'name': 'jason_sb'}
+
+    # 插入
+    # user_obj = User(name='json_egon_sb')
+    # user_obj.save()
