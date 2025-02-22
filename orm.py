@@ -219,12 +219,12 @@ class Models(dict, metaclass=OrmMetaClass):
 
 
 # User, Movie, Notice
-# 表模型类
+# 表模型类,这里的映射关系，类属性必须和表的字段一致
 class User(Models):
     # table_name = 'Students'
     id = IntegerField(name='id', primary_key=True)
     name = StringField(name='name')
-    pwd = StringField(name='pwd')
+    age = IntegerField(name='age')
 
 
 class Movie(Models):
@@ -297,20 +297,22 @@ if __name__ == '__main__':
     # 查看所有
     # res = User.select()
     # print(res)
-    pass
-
 
     # 根据查询条件查询
 
-    # user = User.select(id=1,name='john')
+    # user = User.select(id=1,name='json')
     # print(user)
 
 
     # 更新
+    # res = User.select(id = 1)
+    # print(res)
     # user_obj = res[0]
-    # user_obj.name = 'jason_sb_sb'
+    # user_obj.name = 'jason'
     # user_obj.sql_update()  # {'id': 3, 'name': 'jason_sb'}
 
     # 插入
-    # user_obj = User(name='json_egon_sb')
-    # user_obj.save()
+    user_obj = User(name='frank',age=8)
+    user_obj.save()
+    res = User.select(name='frank')
+    print(res)
